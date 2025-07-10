@@ -2,7 +2,6 @@ import Form from '@/app/ui/customers/edit-form';
 import Breadcrumbs from '@/app/ui/customers/breadcrumbs';
 import { fetchCustomerById } from '@/app/lib/data';
 import { notFound } from 'next/navigation';
-import { customers } from '@/app/lib/placeholder-data';
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;

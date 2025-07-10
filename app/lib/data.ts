@@ -140,7 +140,7 @@ export async function fetchInvoicesPages(query: string) {
   }
 }
 
-export async function fetchCustomersPages(query: string) {
+export async function fetchCustomersPages() {
   try {
     const data = await sql`SELECT COUNT(*) FROM customers`;
 
@@ -201,7 +201,6 @@ export async function fetchCustomers(
   query: string,
   currentPage: number
 ) {
-  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
   try {
     const customers = await sql<CustomerField[]>`
       SELECT
