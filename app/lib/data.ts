@@ -197,10 +197,7 @@ export async function fetchCustomerById(id: string) {
 }
 
 
-export async function fetchCustomers(
-  query: string,
-  currentPage: number
-) {
+export async function fetchCustomers() {
   try {
     const customers = await sql<CustomerField[]>`
       SELECT

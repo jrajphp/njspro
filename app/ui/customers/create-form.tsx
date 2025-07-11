@@ -1,8 +1,5 @@
 'use client';
 
-import { Customer } from '@/app/lib/definitions';
-import Link from 'next/link';
-import { CheckIcon, ClockIcon, CurrencyDollarIcon, UserCircleIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/app/ui/button';
 import { createCustomer, CustomerState } from '@/app/lib/actions';
 import { useActionState } from 'react';

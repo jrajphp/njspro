@@ -1,5 +1,4 @@
 import Image from 'next/image';
-import { lusitana } from '@/app/ui/fonts';
 import { fetchFilteredCustomers } from '@/app/lib/data';
 import { DeleteCustomer, UpdateCustomer } from '@/app/ui/customers/buttons';
 
