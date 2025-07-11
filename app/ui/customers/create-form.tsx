@@ -5,8 +5,11 @@ import { createCustomer, CustomerState } from '@/app/lib/actions';
 import { useActionState } from 'react';
 
 export default function CreateCustomerForm() {
-    const initialState: CustomerState = { message: null, errors: {} , values: {} };
-
+const initialState: CustomerState = {
+  message: "",
+  errors: {},
+  values: { name: "", email: "", image_url: "" }
+};
     const [state, formAction] = useActionState(createCustomer, initialState);
 
     const prevValues = state.values || {};

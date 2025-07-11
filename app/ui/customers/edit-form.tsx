@@ -13,7 +13,11 @@ export default function EditCustomerForm({
   customer: Customer;
 }) {
 
-  const initialState: CustomerState = { message: null, errors: {} };
+  const initialState: CustomerState = {
+    message: "", 
+    errors: {},
+    values: { name: "", email: "", image_url: "" }
+  };
   const updateCustomerWithId = updateCustomer.bind(null, customer.id);
   const [state, formAction] = useActionState(updateCustomerWithId, initialState);
 

@@ -15,7 +15,11 @@ import { useActionState } from 'react';
 
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
-  const initialState: State = { message: null, errors: {} };
+  const initialState: State = {
+    message: "",
+    errors: { customerId: [], amount: [], status: [] },
+    values: { customerId: "", amount: "", status: "" }
+  };
 
   const [state, formAction] = useActionState(createInvoice, initialState);
 
@@ -161,7 +165,7 @@ export default function Form({ customers }: { customers: CustomerField[] }) {
         </Link>
         <Button type="submit">Create Invoice</Button>
       </div>
-      
+
     </form>
   );
 }

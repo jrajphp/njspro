@@ -41,16 +41,16 @@ const CustomerSchema = z.object({
 
 const CreateCustomer = CustomerSchema.omit({ id: true });
 export type CustomerState = {
-  errors?: {
+  errors: {
     name?: string[];
     email?: string[];
     image_url?: string[];
   };
-  message?: string | null;
-  values?: {
-    name?: string;
-    email?: string;
-    image_url?: string;
+  message: string;
+  values: {
+    name: string;
+    email: string;
+    image_url: string;
   };
 };
 
@@ -89,9 +89,12 @@ export async function createCustomer(
       VALUES (${name}, ${email}, ${image_url})
     `;
   } catch (error) {
+
     console.error('Database Error:', error);
     // If a database error occurs, return a more specific error.
     return {
+      errors: {},
+      values: { name: '', email: '', image_url: '' },
       message: 'Database Error: Failed to Create Customer.',
     };
   }
@@ -117,16 +120,16 @@ const FormSchema = z.object({
 
 const CreateInvoice = FormSchema.omit({ id: true, date: true });
 export type State = {
-  errors?: {
+  errors: {
     customerId?: string[];
     amount?: string[];
     status?: string[];
   };
-  message?: string | null;
-  values?: {
-    customerId?: string;
-    amount?: string;
-    status?: string;
+  message: string;
+  values: {
+    customerId: string;
+    amount: string;
+    status: string;
   };
 };
 
@@ -166,7 +169,13 @@ export async function createInvoice(prevState: State, formData: FormData) {
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
-      message: `Database Error: Failed to Create Invoice . ${error instanceof Error ? error.message : String(error)}`
+      errors: {},
+      message: `Database Error: Failed to Create Invoice . ${error instanceof Error ? error.message : String(error)}`,
+      values: {
+        customerId: formData.get('customerId')?.toString() || '',
+        amount: formData.get('amount')?.toString() || '',
+        status: formData.get('status')?.toString() || '',
+      },
     };
   }
 
@@ -193,6 +202,11 @@ export async function updateInvoice(
     return {
       errors: validatedFields.error.flatten().fieldErrors,
       message: 'Missing Fields. Failed to Update Invoice.',
+      values: {
+        customerId: formData.get('customerId')?.toString() || '',
+        amount: formData.get('amount')?.toString() || '',
+        status: formData.get('status')?.toString() || '',
+      },
     };
   }
 
@@ -206,7 +220,15 @@ export async function updateInvoice(
       WHERE id = ${id}
     `;
   } catch (error) {
-    return { message: `Database Error: Failed to Update Invoice. ${error instanceof Error ? error.message : String(error)}` };
+    return {
+      errors: {},
+      message: `Database Error: Failed to Update Invoice. ${error instanceof Error ? error.message : String(error)}`,
+      values: {
+        customerId: formData.get('customerId')?.toString() || '',
+        amount: formData.get('amount')?.toString() || '',
+        status: formData.get('status')?.toString() || '',
+      },
+    };
   }
 
   revalidatePath('/dashboard/invoices');
@@ -237,7 +259,12 @@ export async function updateCustomer(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Customer.',
+    message: 'Missing Fields. Failed to Update Customer.',
+    values: {
+      name: formData.get('name')?.toString() || '',
+      email: formData.get('email')?.toString() || '',
+      image_url: formData.get('image_url')?.toString() || '',
+    },
     };
   }
 
@@ -251,7 +278,15 @@ export async function updateCustomer(
     `;
   } catch (error) {
     console.error('Database Error:', error);
-    return { message: `Database Error: Failed to Update Customer. ${error instanceof Error ? error.message : String(error)}` };
+    return { 
+      errors: {},
+      message: `Database Error: Failed to Update Customer. ${error instanceof Error ? error.message : String(error)}`,
+      values: {
+        name: formData.get('name')?.toString() || '',
+        email: formData.get('email')?.toString() || '',
+        image_url: formData.get('image_url')?.toString() || '',
+      },
+    };
   }
 
   revalidatePath('/dashboard/customers');
