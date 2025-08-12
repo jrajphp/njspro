@@ -88,3 +88,27 @@ export type InvoiceForm = {
   status: 'pending' | 'paid';
 };
 
+export type Category = {
+  id: string;
+  name: string;
+  status: '1' | '2';
+};
+
+export type SubCategorydef = {
+  id: string;
+  name: string;
+  category_id: string;
+  status: '1' | '2';
+};
+
+export type Product = {
+  id: string;
+  name: string;
+  status: '1' | '2';
+  category_id: string;
+  subcategory_id: string;
+  image: string;
+  description?: string;
+  price: string;
+};
+

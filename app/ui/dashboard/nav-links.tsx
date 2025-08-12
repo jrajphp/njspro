@@ -1,9 +1,7 @@
 'use client';
 
 import {
-  UserGroupIcon,
-  HomeIcon,
-  DocumentDuplicateIcon,
+  UserGroupIcon, HomeIcon, DocumentDuplicateIcon, Bars3BottomLeftIcon, RectangleStackIcon
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,6 +17,9 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Categories', href: '/dashboard/categories', icon: Bars3BottomLeftIcon },
+  { name: 'Subcategories', href: '/dashboard/subcategories', icon: Bars3BottomLeftIcon },
+  { name: 'Products', href: '/dashboard/products', icon: RectangleStackIcon },
 ];
 
 export default function NavLinks() {
